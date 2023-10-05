@@ -39,6 +39,9 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      FireFlutterService.instance.init(context: router.routerDelegate.navigatorKey.currentContext!);
+    });
   }
 
   final ChatRoomListViewController controller = ChatRoomListViewController();

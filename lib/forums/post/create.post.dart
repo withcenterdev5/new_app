@@ -10,12 +10,23 @@ class PostCreate extends StatefulWidget {
 }
 
 class _PostCreateState extends State<PostCreate> {
+  final title = TextEditingController();
+  final content = TextEditingController();
+  // final title = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+    return Dialog(
+      alignment: Alignment.bottomRight,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const TextField(),
+          const TextField(),
+          TextFormField(
+            initialValue: 'this is initialValue',
+            decoration: const InputDecoration(),
+          ),
           ButtonRow(
             label1: 'Create',
             label2: 'Cancel',

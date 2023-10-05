@@ -14,11 +14,19 @@ class _FeedBodyState extends State<FeedBody> {
   final controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    PostService.instance.uploadFromCamera = false;
+    PostService.instance.uploadFromFile = false;
+  }
+
+  @override
   void dispose() {
     super.dispose();
     controller.dispose();
   }
 
+// export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

@@ -13,9 +13,13 @@ class EditForm extends StatefulWidget {
 }
 
 class _EditFormState extends State<EditForm> {
-  final displayName = TextEditingController();
-  final name = TextEditingController();
-  final gender = TextEditingController();
+  // final displayName = TextEditingController();
+  // final name = TextEditingController();
+  // final gender = TextEditingController();
+
+  String displayName = '';
+  String name = '';
+  String gender = '';
 
   @override
   void initState() {
@@ -23,70 +27,83 @@ class _EditFormState extends State<EditForm> {
     UserService.instance.get(myUid ?? '');
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    displayName.dispose();
-    name.dispose();
-    gender.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   displayName.dispose();
+  //   name.dispose();
+  //   gender.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return UserDocReady(
-      builder: (user) {
-        return Dialog(
-          backgroundColor: Theme.of(context).cardColor,
-          alignment: Alignment.center,
-          child: LayoutBuilder(builder: (context, constraints) {
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
-              child: SizedBox(
-                height: constraints.maxHeight / 3 - 14,
-                width: 400,
-                child: Column(
-                  children: [
-                    _textFieldBuilder('Display Name', displayName),
-                    _textFieldBuilder('Name', name),
-                    _textFieldBuilder('Gender', gender),
-                    ButtonRow(
-                      label1: 'Update',
-                      action1: () async {
-                        await my
-                            .update(
-                          displayName: displayName.text,
-                          name: name.text,
-                          gender: gender.text,
-                        )
-                            .then((value) {
-                          // debugPrint('gumana');
-                          context.pop();
-                          toast(
-                            backgroundColor: Theme.of(context).indicatorColor,
-                            title: 'Profile Updated',
-                            message: 'Profile has been updated successfully',
-                          );
-                        });
-                        await my.updateComplete(true);
-                      },
-                      label2: 'Cancel',
-                      action2: () => context.pop(),
-                    ),
-                  ],
+    return Dialog(
+      backgroundColor: Theme.of(context).cardColor,
+      alignment: Alignment.center,
+      child: LayoutBuilder(builder: (context, constraints) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
+          child: SizedBox(
+            height: constraints.maxHeight / 3 - 14,
+            width: 400,
+            child: Column(
+              children: [
+                _textFieldBuilder('Display Name', my.displayName == '' ? displayName : my.displayName, isDisplay: true),
+                _textFieldBuilder('Name', my.name == '' ? name : my.name, isName: true),
+                _textFieldBuilder('Gender', my.gender == '' ? gender : my.gender),
+                ButtonRow(
+                  label1: 'Update',
+                  action1: () async {
+                    await my
+                        .update(
+                      displayName: displayName,
+                      name: name,
+                      gender: gender,
+                    )
+                        .then((value) {
+                      // debugPrint('gumana');
+                      context.pop();
+                      toast(
+                        backgroundColor: Theme.of(context).indicatorColor,
+                        title: 'Profile Updated',
+                        message: 'Profile has been updated successfully',
+                      );
+                    });
+                    await my.updateComplete(true);
+                  },
+                  label2: 'Cancel',
+                  action2: () => context.pop(),
                 ),
-              ),
-            );
-          }),
+              ],
+            ),
+          ),
         );
-      },
+      }),
     );
   }
 
-  Widget _textFieldBuilder(String label, TextEditingController controller) {
+  Widget _textFieldBuilder(String label, String initialValue, {bool isDisplay = false, bool isName = false}) {
     return Padding(
       padding: const EdgeInsets.only(top: 4, bottom: 4),
-      child: TextField(
-        controller: controller,
+      child: TextFormField(
+        initialValue: initialValue,
+        onChanged: (value) => setState(() {
+          if (isDisplay) {
+            displayName = value;
+            name = name == '' ? my.name : name;
+            gender = gender == '' ? my.gender : gender;
+            return;
+          }
+          if (isName) {
+            name = value;
+            displayName = displayName == '' ? my.displayName : displayName;
+            gender = gender == '' ? my.gender : gender;
+            return;
+          }
+          gender = value;
+          name = name == '' ? my.name : name;
+          displayName = displayName == '' ? my.displayName : displayName;
+        }),
         decoration: InputDecoration(
           border: const OutlineInputBorder(
             gapPadding: 13,

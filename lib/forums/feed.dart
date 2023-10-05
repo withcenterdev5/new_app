@@ -1,6 +1,5 @@
 import 'package:fireflutter/fireflutter.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:new_app/forums/feed.body.dart';
 import 'package:new_app/page.essentials/app.bar.dart';
 import 'package:new_app/page.essentials/bottom.navbar.dart';
@@ -20,9 +19,8 @@ class _NewsFeedState extends State<NewsFeed> {
     super.initState();
 
     // PostService.instance.customize.showEditScreen = (context,{categoryId,post}) {};
-
     PostService.instance.customize.shareButtonBuilder = (post) {
-      return const Icon(Icons.abc);
+      return const Icon(Icons.share);
     };
 
     // can not check if working, install on
@@ -59,9 +57,9 @@ class _NewsFeedState extends State<NewsFeed> {
         context: context,
         icon: Icons.create,
         onPressed: () {
-          showGeneralDialog(
+          showDialog(
             context: context,
-            pageBuilder: (context, _, __) => const PostCreate(),
+            builder: (context) => const PostCreate(),
             // pageBuilder: (context, _, __) => CategoryCreateScreen(success: (category) {
             //   context.pop();
             //   alert(
