@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:new_app/chat.room/chat.room.dart';
-import 'package:new_app/forums/first.page.dart';
+import 'package:new_app/forums/land.page.dart';
 import 'package:new_app/home.screen/main.page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -21,6 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     UserService.instance.get(myUid ?? '');
   }
 
+  final double iconSize = sizeSm;
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -34,6 +35,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             },
             icon: const FaIcon(
               FontAwesomeIcons.peopleGroup,
+              // size: iconSize,
             ),
           ),
           label: '',
@@ -46,6 +48,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             },
             icon: const FaIcon(
               FontAwesomeIcons.solidMessage,
+              // size: iconSize,
             ),
           ),
           label: '',
@@ -57,6 +60,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             },
             icon: const FaIcon(
               FontAwesomeIcons.solidUser,
+              // size: iconSize,
             ),
           ),
           label: '',

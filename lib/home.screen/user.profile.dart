@@ -20,7 +20,8 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return UserDocReady(
+      builder: (user) => StreamBuilder(
         stream: UserService.instance.documentChanges,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -34,8 +35,9 @@ class _UserProfileState extends State<UserProfile> {
               ],
             ),
           );
-        });
-    // : const CircularProgressIndicator(),
+        },
+      ),
+    );
   }
 
   Widget userInfo(AsyncSnapshot<User?> snapshot, BuildContext context) {

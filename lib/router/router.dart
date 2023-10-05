@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:new_app/chat.room/chat.room.dart';
 import 'package:new_app/forums/feed.dart';
-import 'package:new_app/forums/first.page.dart';
+import 'package:new_app/forums/land.page.dart';
 import 'package:new_app/home.screen/main.page.dart';
 import 'package:new_app/main.dart';
 

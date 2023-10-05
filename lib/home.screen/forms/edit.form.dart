@@ -62,7 +62,7 @@ class _EditFormState extends State<EditForm> {
                           // debugPrint('gumana');
                           context.pop();
                           toast(
-                            backgroundColor: Theme.of(context).dividerColor,
+                            backgroundColor: Theme.of(context).indicatorColor,
                             title: 'Profile Updated',
                             message: 'Profile has been updated successfully',
                           );
