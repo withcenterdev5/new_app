@@ -1,7 +1,11 @@
 import 'package:fireflutter/fireflutter.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:new_app/forums/feed.body.dart';
 import 'package:new_app/page.essentials/app.bar.dart';
 import 'package:new_app/page.essentials/bottom.navbar.dart';
+import 'package:new_app/forums/post/create.post.dart';
+import 'package:new_app/page.essentials/floating.button.dart';
 
 class NewsFeed extends StatefulWidget {
   const NewsFeed({super.key});
@@ -11,10 +15,16 @@ class NewsFeed extends StatefulWidget {
 }
 
 class _NewsFeedState extends State<NewsFeed> {
-  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
+
+    // PostService.instance.customize.showEditScreen = (context,{categoryId,post}) {};
+
+    PostService.instance.customize.shareButtonBuilder = (post) {
+      return const Icon(Icons.abc);
+    };
+
     // can not check if working, install on
     // physical phone if necessary
     PostService.instance.init(
@@ -34,10 +44,9 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // key: _scaffoldKey,
       appBar: AppBar(
         title: const TitleText(text: 'Forum'),
-        leading: const LeadingButton(),
+        // leading: const LeadingButton(),
         actions: const [
           AppBarAction(),
         ],
@@ -46,50 +55,23 @@ class _NewsFeedState extends State<NewsFeed> {
       ),
       body: const FeedBody(),
       bottomNavigationBar: const BottomNavBar(index: 0),
-    );
-  }
-}
-
-class FeedBody extends StatelessWidget {
-  const FeedBody({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // notifications, add post / image buttons here
-          SizedBox(
-            height: constraints.maxHeight,
-            child: PostListView(
-              itemBuilder: (context, post) => PostDoc(
-                post: post,
-                builder: (post) {
-                  return Theme(
-                    data: ThemeData(
-                      elevatedButtonTheme: ElevatedButtonThemeData(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          foregroundColor: Colors.blue,
-                          elevation: 0,
-                          textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                      ),
-                    ),
-                    child: PostCard(
-                      post: post,
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
+      floatingActionButton: CustomFloatingButton(
+        context: context,
+        icon: Icons.create,
+        onPressed: () {
+          showGeneralDialog(
+            context: context,
+            pageBuilder: (context, _, __) => const PostCreate(),
+            // pageBuilder: (context, _, __) => CategoryCreateScreen(success: (category) {
+            //   context.pop();
+            //   alert(
+            //     context: context,
+            //     title: 'Category Added',
+            //     message: '${category.name} has successfully added',
+            //   );
+            // }),
+          );
+        },
       ),
     );
   }

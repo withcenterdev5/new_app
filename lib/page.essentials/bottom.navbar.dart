@@ -31,7 +31,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         BottomNavigationBarItem(
           icon: IconButton(
             onPressed: () {
-              context.push(PostHome.routeName);
+              context.go(PostHome.routeName);
             },
             icon: const FaIcon(
               FontAwesomeIcons.peopleGroup,
@@ -43,7 +43,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         BottomNavigationBarItem(
           icon: IconButton(
             onPressed: () {
-              context.push(ChatRoom.routeName);
+              context.go(ChatRoom.routeName);
               // ChatService.instance.showChatRoom(context: context, user: my);
             },
             icon: const FaIcon(
@@ -56,7 +56,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         BottomNavigationBarItem(
           icon: IconButton(
             onPressed: () {
-              context.push(MainPage.routeName);
+              context.go(MainPage.routeName);
             },
             icon: const FaIcon(
               FontAwesomeIcons.solidUser,

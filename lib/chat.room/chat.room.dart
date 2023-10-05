@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:new_app/page.essentials/app.bar.dart';
 import 'package:new_app/page.essentials/bottom.navbar.dart';
+import 'package:new_app/page.essentials/floating.button.dart';
 import 'package:new_app/router/router.dart';
 
 class ChatRoom extends StatefulWidget {
@@ -46,7 +47,7 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const LeadingButton(),
+        // leading: const LeadingButton(),
         title: const TitleText(text: 'Chat'),
         backgroundColor: Theme.of(context).colorScheme.onBackground,
         // forceMaterialTransparency: true,
@@ -67,35 +68,26 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
           },
         ),
       ),
-      floatingActionButton: _customFloatingButton(context),
-    );
-  }
-
-  FloatingActionButton _customFloatingButton(BuildContext context) {
-    return FloatingActionButton(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      foregroundColor: Theme.of(context).canvasColor,
-      onPressed: () {
-        showGeneralDialog(
-          context: context,
-          pageBuilder: (context, _, __) => ChatRoomCreateDialog(
-            success: (room) {
-              context.pop();
-              if (context.mounted) {
-                controller.showChatRoom(
-                  context: context,
-                  room: room,
-                );
-              }
-            },
-            cancel: () => context.pop(),
-          ),
-        );
-      },
-      elevation: 0,
-      child: const FaIcon(
-        FontAwesomeIcons.pencil,
-        size: sizeMd,
+      floatingActionButton: CustomFloatingButton(
+        onPressed: () {
+          showGeneralDialog(
+            context: context,
+            pageBuilder: (context, _, __) => ChatRoomCreateDialog(
+              success: (room) {
+                context.pop();
+                if (context.mounted) {
+                  controller.showChatRoom(
+                    context: context,
+                    room: room,
+                  );
+                }
+              },
+              cancel: () => context.pop(),
+            ),
+          );
+        },
+        icon: FontAwesomeIcons.pencil,
+        context: context,
       ),
     );
   }

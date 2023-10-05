@@ -18,6 +18,7 @@ class ButtonRow extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return LayoutBuilder(builder: (context, constraints) {
       return SizedBox(
+        // height: ,
         width: constraints.maxWidth,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

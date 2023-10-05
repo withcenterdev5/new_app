@@ -34,7 +34,7 @@ class _MainPageBodyState extends State<MainPageBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const LeadingButton(),
+        // leading: const LeadingButton(),
         title: const TitleText(text: 'Profile'),
         backgroundColor: Theme.of(context).colorScheme.onBackground,
         // forceMaterialTransparency: true,
