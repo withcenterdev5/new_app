@@ -17,24 +17,26 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.height / 3 + 12,
+      height: size.height / 3.3,
       width: size.width,
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            children: [
-              textFieldBuilder(false),
-              const SizedBox(height: 8),
-              textFieldBuilder(true),
-              const SizedBox(height: 20),
-              buttonBuilder('Login', true),
-              buttonBuilder('Register', false),
-            ],
+      child: Center(
+        child: Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(sizeSm),
+            child: Column(
+              children: [
+                textFieldBuilder(false),
+                const SizedBox(height: 8),
+                textFieldBuilder(true),
+                const SizedBox(height: 20),
+                buttonBuilder('Login', true),
+                buttonBuilder('Register', false),
+              ],
+            ),
           ),
         ),
       ),

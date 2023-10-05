@@ -19,9 +19,9 @@ class _NewsFeedState extends State<NewsFeed> {
     super.initState();
 
     // PostService.instance.customize.showEditScreen = (context,{categoryId,post}) {};
-    PostService.instance.customize.shareButtonBuilder = (post) {
-      return const Icon(Icons.share);
-    };
+    // PostService.instance.customize.shareButtonBuilder = (post) {
+    //   return const Icon(Icons.share);
+    // };
 
     // can not check if working, install on
     // physical phone if necessary
