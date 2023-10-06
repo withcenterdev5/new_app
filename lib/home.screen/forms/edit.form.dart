@@ -17,10 +17,10 @@ class _EditFormState extends State<EditForm> {
   // final name = TextEditingController();
   // final gender = TextEditingController();
 
-  String displayName = '';
-  String name = '';
-  String gender = '';
-
+  String displayName = my.displayName;
+  String name = my.name;
+  String gender = 'Male';
+  Gender genVal = Gender.M;
   @override
   void initState() {
     super.initState();
@@ -50,7 +50,36 @@ class _EditFormState extends State<EditForm> {
               children: [
                 _textFieldBuilder('Display Name', my.displayName == '' ? displayName : my.displayName, isDisplay: true),
                 _textFieldBuilder('Name', my.name == '' ? name : my.name, isName: true),
-                _textFieldBuilder('Gender', my.gender == '' ? gender : my.gender),
+
+                /// TODO: Design dropdown button
+                DropdownButton(
+                  value: genVal,
+                  items: const [
+                    DropdownMenuItem(
+                      value: Gender.F,
+                      child: Text('Female'),
+                    ),
+                    DropdownMenuItem(
+                      value: Gender.M,
+                      child: Text('Male'),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    if (value == Gender.F) {
+                      setState(() {
+                        gender = 'Female';
+                        genVal = Gender.F;
+                      });
+                    }
+                    if (value == Gender.M) {
+                      setState(() {
+                        gender = 'Male';
+                        genVal = Gender.M;
+                      });
+                    }
+                    debugPrint(gender);
+                  },
+                ),
                 ButtonRow(
                   label1: 'Update',
                   action1: () async {
@@ -61,7 +90,6 @@ class _EditFormState extends State<EditForm> {
                       gender: gender,
                     )
                         .then((value) {
-                      // debugPrint('gumana');
                       context.pop();
                       toast(
                         backgroundColor: Theme.of(context).indicatorColor,

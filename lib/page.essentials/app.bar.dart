@@ -13,9 +13,9 @@ class TitleText extends StatelessWidget {
       text,
       style: TextStyle(
         color: Theme.of(context).shadowColor,
-        fontSize: 20,
+        fontSize: sizeMd - 4,
         fontWeight: FontWeight.bold,
-        letterSpacing: -1,
+        // letterSpacing: -1,
       ),
     );
   }
@@ -27,30 +27,29 @@ class AppBarAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        right: 16,
-        top: 10,
-        bottom: 10,
-      ),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).hintColor.withAlpha(80),
-          minimumSize: const Size.fromWidth(8),
-          elevation: 0,
+        padding: const EdgeInsets.only(
+          right: 16,
+          top: 13,
+          bottom: 16,
         ),
-        onPressed: () {
-          UserService.instance.signOut();
-          context.push(LoginPage.routeName);
-        },
-        child: const Text(
-          'Logout',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).hintColor.withAlpha(80),
+            minimumSize: const Size.fromWidth(8),
+            elevation: 0,
           ),
-        ),
-      ),
-    );
+          onPressed: () {
+            UserService.instance.signOut();
+            context.go(LoginPage.routeName);
+          },
+          child: const Text(
+            'Logout',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ));
   }
 }
 
@@ -67,3 +66,12 @@ class LeadingButton extends StatelessWidget {
     );
   }
 }
+
+AppBar appBar(String text) => AppBar(
+      title: TitleText(text: text),
+      actions: const [
+        AppBarAction(),
+      ],
+      forceMaterialTransparency: true,
+      centerTitle: true,
+    );

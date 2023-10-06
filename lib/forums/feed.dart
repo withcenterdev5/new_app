@@ -42,15 +42,7 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const TitleText(text: 'Forum'),
-        // leading: const LeadingButton(),
-        actions: const [
-          AppBarAction(),
-        ],
-        backgroundColor: Theme.of(context).canvasColor,
-        elevation: 0,
-      ),
+      appBar: appBar('Forum'),
       body: const FeedBody(),
       bottomNavigationBar: const BottomNavBar(index: 0),
       floatingActionButton: CustomFloatingButton(

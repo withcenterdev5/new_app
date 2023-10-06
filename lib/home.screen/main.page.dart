@@ -33,16 +33,7 @@ class _MainPageBodyState extends State<MainPageBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // leading: const LeadingButton(),
-        title: const TitleText(text: 'Profile'),
-        backgroundColor: Theme.of(context).colorScheme.onBackground,
-        // forceMaterialTransparency: true,
-        elevation: 0,
-        actions: const [
-          AppBarAction(),
-        ],
-      ),
+      appBar: appBar('Profile'),
       body: const UserProfile(),
       bottomNavigationBar: const BottomNavBar(index: 2),
     );

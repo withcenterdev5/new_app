@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:new_app/chat.room/chat.room.dart';
 import 'package:new_app/forums/land.page.dart';
 import 'package:new_app/home.screen/main.page.dart';
+import 'package:new_app/inits.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key, required this.index});
@@ -18,7 +19,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   void initState() {
     super.initState();
-    UserService.instance.get(myUid ?? '');
+    userInit();
   }
 
   final double iconSize = sizeSm;

@@ -17,7 +17,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.height / 3.3,
+      height: 282,
       width: size.width,
       child: Center(
         child: Card(

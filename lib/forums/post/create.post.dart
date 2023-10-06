@@ -31,9 +31,9 @@ class _PostCreateState extends State<PostCreate> {
       elevation: 0,
       alignment: Alignment.center,
       child: SizedBox(
-        height: MediaQuery.of(context).size.height / 2.5 - 10,
+        height: MediaQuery.of(context).size.height / 2,
         child: Padding(
-          padding: const EdgeInsets.all(sizeMd),
+          padding: const EdgeInsets.all(sizeSm),
           child: Theme(
             data: Theme.of(context).copyWith(
               inputDecorationTheme: InputDecorationTheme(
@@ -96,9 +96,40 @@ class InputFields extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      maxLines: isContent ? 4 : 1,
+      maxLines: isContent ? 6 : 1,
       decoration: InputDecoration(
         hintText: hintText,
+      ),
+    );
+  }
+}
+
+class PostField extends StatelessWidget {
+  const PostField({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: .5,
+            ),
+            borderRadius: BorderRadius.circular(sizeLg),
+          ),
+          child: const Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: sizeSm),
+              child: Text("What's on your mind?"),
+            ),
+          ),
+        ),
       ),
     );
   }

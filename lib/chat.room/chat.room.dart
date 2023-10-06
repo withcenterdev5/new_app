@@ -42,6 +42,7 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       FireFlutterService.instance.init(context: router.routerDelegate.navigatorKey.currentContext!);
     });
+    // ChatService.instance.customize.showChatRoom = ({, })
   }
 
   final ChatRoomListViewController controller = ChatRoomListViewController();
@@ -49,16 +50,7 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // leading: const LeadingButton(),
-        title: const TitleText(text: 'Chat'),
-        backgroundColor: Theme.of(context).colorScheme.onBackground,
-        // forceMaterialTransparency: true,
-        actions: const [
-          AppBarAction(),
-        ],
-        elevation: 0,
-      ),
+      appBar: appBar('Chats'),
       bottomNavigationBar: const BottomNavBar(index: 1),
       body: ChatRoomListView(
         controller: controller,
@@ -66,7 +58,7 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
         itemBuilder: (context, room) => ChatRoomListTile(
           room: room,
           onTap: () {
-            ChatService.instance.customize.chatRoomAppBarBuilder = ({room, user}) => _customAppBar(context, room);
+            ChatService.instance.customize.chatRoomAppBarBuilder = ({room, user}) => customAppBar(context, room);
             controller.showChatRoom(context: context, room: room);
           },
         ),
@@ -89,13 +81,13 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
             ),
           );
         },
-        icon: FontAwesomeIcons.add,
+        icon: FontAwesomeIcons.plus,
         context: context,
       ),
     );
   }
 
-  AppBar _customAppBar(BuildContext context, Room? room) {
+  AppBar customAppBar(BuildContext context, Room? room) {
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.onBackground,
       elevation: 0,

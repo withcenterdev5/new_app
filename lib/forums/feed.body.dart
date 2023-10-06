@@ -1,5 +1,9 @@
 import 'package:fireflutter/fireflutter.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:new_app/forums/post/create.post.dart';
+import 'package:new_app/home.screen/main.page.dart';
 
 class FeedBody extends StatefulWidget {
   const FeedBody({
@@ -26,7 +30,6 @@ class _FeedBodyState extends State<FeedBody> {
     controller.dispose();
   }
 
-// export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -34,8 +37,30 @@ class _FeedBodyState extends State<FeedBody> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // notifications, add post / image buttons here
-          SizedBox(
-            height: constraints.maxHeight,
+          Padding(
+            padding: const EdgeInsets.only(left: sizeSm, right: sizeSm),
+            child: Row(
+              children: [
+                UserAvatar(
+                  user: my,
+                  radius: sizeXl,
+                  size: sizeXl,
+                  onTap: () => context.push(MainPage.routeName),
+                ),
+                const SizedBox(width: sizeSm),
+                const PostField(),
+                const SizedBox(width: sizeXs),
+                IconButton(
+                  onPressed: () {},
+                  icon: FaIcon(
+                    FontAwesomeIcons.image,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
             child: PostListView(
               itemBuilder: (context, post) => PostDoc(
                 post: post,

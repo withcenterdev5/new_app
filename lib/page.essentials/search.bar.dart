@@ -20,7 +20,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
         children: [
           SearchBar(
             // controller: searchController,
-            leading: const FaIcon(FontAwesomeIcons.search),
+            leading: const FaIcon(FontAwesomeIcons.magnifyingGlass),
             hintText: 'Search',
             elevation: const MaterialStatePropertyAll(0),
             backgroundColor: MaterialStatePropertyAll(Theme.of(context).splashColor),
