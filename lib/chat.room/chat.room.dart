@@ -89,8 +89,9 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
 
   AppBar customAppBar(BuildContext context, Room? room) {
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.onBackground,
-      elevation: 0,
+      // backgroundColor: Theme.of(context).colorScheme.onBackground,
+      // elevation: 0,
+      forceMaterialTransparency: true,
       leading: const LeadingButton(),
       title: room!.isGroupChat
           ? Text(

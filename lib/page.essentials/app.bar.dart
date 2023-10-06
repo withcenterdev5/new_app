@@ -27,29 +27,31 @@ class AppBarAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(
-          right: 16,
-          top: 13,
-          bottom: 16,
+      padding: const EdgeInsets.only(
+        right: 16,
+        top: 13,
+        bottom: 16,
+      ),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).hintColor.withAlpha(80),
+          minimumSize: const Size.fromWidth(8),
+          elevation: 0,
         ),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).hintColor.withAlpha(80),
-            minimumSize: const Size.fromWidth(8),
-            elevation: 0,
+        onPressed: () {
+          UserService.instance.signOut();
+          context.go(LoginPage.routeName);
+          // context.pop();
+        },
+        child: const Text(
+          'Logout',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
           ),
-          onPressed: () {
-            UserService.instance.signOut();
-            context.go(LoginPage.routeName);
-          },
-          child: const Text(
-            'Logout',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -67,11 +69,14 @@ class LeadingButton extends StatelessWidget {
   }
 }
 
-AppBar appBar(String text) => AppBar(
-      title: TitleText(text: text),
-      actions: const [
-        AppBarAction(),
-      ],
-      forceMaterialTransparency: true,
-      centerTitle: true,
-    );
+AppBar appBar(String text, {bool hasLeading = false}) {
+  return AppBar(
+    leading: hasLeading ? const LeadingButton() : const SizedBox.shrink(),
+    title: TitleText(text: text),
+    actions: const [
+      AppBarAction(),
+    ],
+    forceMaterialTransparency: true,
+    centerTitle: true,
+  );
+}

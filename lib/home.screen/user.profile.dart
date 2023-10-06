@@ -1,7 +1,7 @@
 import 'package:fireflutter/fireflutter.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:new_app/home.screen/forms/edit.form.dart';
+import 'package:new_app/page.essentials/app.bar.dart';
+import 'package:new_app/page.essentials/simple.builders.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -11,11 +11,12 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  late String followers = my.followers.toList().length.toString();
+
   @override
   void initState() {
     super.initState();
     UserService.instance.get(myUid!);
-    // UserService.instance.documentChanges;
   }
 
   @override
@@ -33,6 +34,40 @@ class _UserProfileState extends State<UserProfile> {
               children: [
                 userInfo(snapshot, context),
                 // UserLikedByListScreen(uids: ),
+                buttonBuilder('Profile Viewers', () {
+                  showGeneralDialog(
+                    context: context,
+                    pageBuilder: (context, _, __) => const ProfileViewersListScreen(),
+                  );
+                }),
+                buttonBuilder('Show Profile', () {
+                  UserService.instance.showPublicProfileScreen(context: context, user: my);
+                }),
+                Text('Followers: $followers'),
+                buttonBuilder('Followers', () {
+                  List<String> followers = my.followers.toList();
+                  debugPrint('${my.isAdmin}');
+                  showGeneralDialog(
+                    context: context,
+                    pageBuilder: (context, _, __) => Scaffold(
+                      appBar: appBar('Followers', hasLeading: true),
+                      body: ListView.builder(
+                        itemCount: followers.length,
+                        itemBuilder: (context, i) => UserDoc(
+                            uid: followers[i],
+                            builder: (follower) {
+                              return ListTile(
+                                leading: UserAvatar(
+                                  user: follower,
+                                  size: sizeXl,
+                                ),
+                                title: Text(follower.name),
+                              );
+                            }),
+                      ),
+                    ),
+                  );
+                }),
               ],
             ),
           );
@@ -40,59 +75,9 @@ class _UserProfileState extends State<UserProfile> {
       ),
     );
   }
-
-  Widget userInfo(AsyncSnapshot<User?> snapshot, BuildContext context) {
-    return Row(
-      children: [
-        UserProfileAvatar(
-          user: snapshot.data!,
-          radius: 30,
-          upload: true,
-          uploadIcon: SizedBox(
-            height: 45,
-            width: 45,
-            child: Center(
-              child: FaIcon(
-                FontAwesomeIcons.cameraRetro,
-                size: sizeMd,
-                color: Theme.of(context).primaryColorLight,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: sizeSm),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _textBuilder(context, snapshot.data!.displayName, true),
-            _textBuilder(context, snapshot.data!.name, false),
-            _textBuilder(context, snapshot.data!.gender, false),
-          ],
-        ),
-        const Spacer(),
-        IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => const EditForm(),
-            );
-          },
-          icon: const FaIcon(
-            FontAwesomeIcons.penToSquare,
-            size: sizeMd - 4,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _textBuilder(BuildContext context, String? label, bool isHighlight) {
-    return Text(
-      label ?? '',
-      style: TextStyle(
-        color: isHighlight ? Colors.black : Theme.of(context).shadowColor.withAlpha(150),
-        fontSize: isHighlight ? sizeMd : sizeSm - 3,
-      ),
-    );
-  }
 }
+/// display category
+// const Text('Categories'),
+// const Expanded(
+//   child: CategoryListView(),
+// ),
