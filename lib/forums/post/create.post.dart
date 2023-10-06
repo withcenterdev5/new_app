@@ -96,7 +96,7 @@ class InputFields extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      maxLines: isContent ? 6 : 1,
+      maxLines: isContent ? 10 : 1,
       decoration: InputDecoration(
         hintText: hintText,
       ),
@@ -107,13 +107,16 @@ class InputFields extends StatelessWidget {
 class PostField extends StatelessWidget {
   const PostField({
     super.key,
+    required this.onTap,
   });
 
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: InkWell(
-        onTap: () {},
+        borderRadius: BorderRadius.circular(sizeLg),
+        onTap: onTap,
         child: Container(
           height: 50,
           decoration: BoxDecoration(

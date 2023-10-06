@@ -22,6 +22,7 @@ class _FeedBodyState extends State<FeedBody> {
     super.initState();
     PostService.instance.uploadFromCamera = false;
     PostService.instance.uploadFromFile = false;
+    PostService.instance.customize.showPostViewScreen = (context, {post, postId}) async => Text('$postId');
   }
 
   @override
@@ -48,10 +49,23 @@ class _FeedBodyState extends State<FeedBody> {
                   onTap: () => context.push(MainPage.routeName),
                 ),
                 const SizedBox(width: sizeSm),
-                const PostField(),
+                PostField(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const PostCreate(),
+                    );
+                  },
+                ),
                 const SizedBox(width: sizeXs),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final url = await StorageService.instance.upload(context: context);
+                    debugPrint('url: $url');
+                    if (url != null && mounted) {
+                      setState(() {});
+                    }
+                  },
                   icon: FaIcon(
                     FontAwesomeIcons.image,
                     color: Theme.of(context).primaryColor,
@@ -60,6 +74,7 @@ class _FeedBodyState extends State<FeedBody> {
               ],
             ),
           ),
+          const SizedBox(height: sizeXs),
           Expanded(
             child: PostListView(
               itemBuilder: (context, post) => PostDoc(

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:new_app/forums/feed.body.dart';
 import 'package:new_app/page.essentials/app.bar.dart';
 import 'package:new_app/page.essentials/bottom.navbar.dart';
-import 'package:new_app/forums/post/create.post.dart';
-import 'package:new_app/page.essentials/floating.button.dart';
 
 class NewsFeed extends StatefulWidget {
   const NewsFeed({super.key});
@@ -17,11 +15,6 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   void initState() {
     super.initState();
-
-    // PostService.instance.customize.showEditScreen = (context,{categoryId,post}) {};
-    // PostService.instance.customize.shareButtonBuilder = (post) {
-    //   return const Icon(Icons.share);
-    // };
 
     // can not check if working, install on
     // physical phone if necessary
@@ -45,24 +38,24 @@ class _NewsFeedState extends State<NewsFeed> {
       appBar: appBar('Forum'),
       body: const FeedBody(),
       bottomNavigationBar: const BottomNavBar(index: 0),
-      floatingActionButton: CustomFloatingButton(
-        context: context,
-        icon: Icons.create,
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => const PostCreate(),
-            // pageBuilder: (context, _, __) => CategoryCreateScreen(success: (category) {
-            //   context.pop();
-            //   alert(
-            //     context: context,
-            //     title: 'Category Added',
-            //     message: '${category.name} has successfully added',
-            //   );
-            // }),
-          );
-        },
-      ),
+      // floatingActionButton: CustomFloatingButton(
+      //   context: context,
+      //   icon: Icons.create,
+      //   onPressed: () {
+      // showDialog(
+      //   context: context,
+      //   builder: (context) => const PostCreate(),
+      //   pageBuilder: (context, _, __) => CategoryCreateScreen(success: (category) {
+      //     context.pop();
+      //     alert(
+      //       context: context,
+      //       title: 'Category Added',
+      //       message: '${category.name} has successfully added',
+      //     );
+      //   }),
+      // );
+      //   },
+      // ),
     );
   }
 }
