@@ -89,7 +89,7 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
             ),
           );
         },
-        icon: FontAwesomeIcons.pencil,
+        icon: FontAwesomeIcons.add,
         context: context,
       ),
     );

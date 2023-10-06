@@ -31,7 +31,7 @@ class _PostCreateState extends State<PostCreate> {
       elevation: 0,
       alignment: Alignment.center,
       child: SizedBox(
-        height: MediaQuery.of(context).size.height / 2.5 - 5,
+        height: MediaQuery.of(context).size.height / 2.5 - 10,
         child: Padding(
           padding: const EdgeInsets.all(sizeMd),
           child: Theme(
@@ -43,11 +43,13 @@ class _PostCreateState extends State<PostCreate> {
                 ),
               ),
             ),
+
+            /// add image upload button here
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // DropdownButton(items: items, onChanged: onChanged),
-                InputFields(controller: categoryId, hintText: 'categ'),
+                InputFields(controller: categoryId, hintText: 'categ-temp'),
                 const SizedBox(height: sizeXs),
                 InputFields(controller: title, hintText: 'Title'),
                 const SizedBox(height: sizeXs),
