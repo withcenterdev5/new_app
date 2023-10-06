@@ -11,11 +11,11 @@ class NewsFeed extends StatefulWidget {
   State<NewsFeed> createState() => _NewsFeedState();
 }
 
+// TODO: follow has an error (Failed assertion: line 116 pos 14: 'path.isNotEmpty')
 class _NewsFeedState extends State<NewsFeed> {
   @override
   void initState() {
     super.initState();
-
     // can not check if working, install on
     // physical phone if necessary
     PostService.instance.init(
@@ -38,24 +38,6 @@ class _NewsFeedState extends State<NewsFeed> {
       appBar: appBar('Forum'),
       body: const FeedBody(),
       bottomNavigationBar: const BottomNavBar(index: 0),
-      // floatingActionButton: CustomFloatingButton(
-      //   context: context,
-      //   icon: Icons.create,
-      //   onPressed: () {
-      // showDialog(
-      //   context: context,
-      //   builder: (context) => const PostCreate(),
-      //   pageBuilder: (context, _, __) => CategoryCreateScreen(success: (category) {
-      //     context.pop();
-      //     alert(
-      //       context: context,
-      //       title: 'Category Added',
-      //       message: '${category.name} has successfully added',
-      //     );
-      //   }),
-      // );
-      //   },
-      // ),
     );
   }
 }

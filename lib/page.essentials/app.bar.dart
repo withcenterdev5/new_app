@@ -69,12 +69,12 @@ class LeadingButton extends StatelessWidget {
   }
 }
 
-AppBar appBar(String text, {bool hasLeading = false}) {
+AppBar appBar(String text, {bool hasLeading = false, bool hasActions = true}) {
   return AppBar(
     leading: hasLeading ? const LeadingButton() : const SizedBox.shrink(),
     title: TitleText(text: text),
-    actions: const [
-      AppBarAction(),
+    actions: [
+      hasActions ? const AppBarAction() : const SizedBox.shrink(),
     ],
     forceMaterialTransparency: true,
     centerTitle: true,

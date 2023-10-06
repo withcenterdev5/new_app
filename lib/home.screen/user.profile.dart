@@ -1,5 +1,6 @@
 import 'package:fireflutter/fireflutter.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:new_app/page.essentials/app.bar.dart';
 import 'package:new_app/page.essentials/simple.builders.dart';
 
@@ -17,6 +18,7 @@ class _UserProfileState extends State<UserProfile> {
   void initState() {
     super.initState();
     UserService.instance.get(myUid!);
+    // UserService.instance.customize.
   }
 
   @override
@@ -37,7 +39,21 @@ class _UserProfileState extends State<UserProfile> {
                 buttonBuilder('Profile Viewers', () {
                   showGeneralDialog(
                     context: context,
-                    pageBuilder: (context, _, __) => const ProfileViewersListScreen(),
+                    pageBuilder: (context, _, __) => Theme(
+                        data: ThemeData(
+                          appBarTheme: AppBarTheme(
+                            color: Theme.of(context).canvasColor,
+                            elevation: 0,
+                            // backgroundColor: Theme.of(context).hintColor,
+                          ),
+                          primaryTextTheme: const TextTheme(),
+                          iconButtonTheme: IconButtonThemeData(
+                            style: ButtonStyle(
+                              iconColor: Theme.of(context).shadowColor,
+                            ),
+                          ),
+                        ),
+                        child: const ProfileViewersListScreen()),
                   );
                 }),
                 buttonBuilder('Show Profile', () {
@@ -49,29 +65,45 @@ class _UserProfileState extends State<UserProfile> {
                   debugPrint('${my.isAdmin}');
                   showGeneralDialog(
                     context: context,
-                    pageBuilder: (context, _, __) => Scaffold(
-                      appBar: appBar('Followers', hasLeading: true),
-                      body: ListView.builder(
-                        itemCount: followers.length,
-                        itemBuilder: (context, i) => UserDoc(
-                            uid: followers[i],
-                            builder: (follower) {
-                              return ListTile(
-                                leading: UserAvatar(
-                                  user: follower,
-                                  size: sizeXl,
-                                ),
-                                title: Text(follower.name),
-                              );
-                            }),
-                      ),
-                    ),
+                    pageBuilder: (context, _, __) => Followers(followers: followers),
                   );
                 }),
               ],
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class Followers extends StatelessWidget {
+  const Followers({
+    super.key,
+    required this.followers,
+  });
+
+  final List<String> followers;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: appBar('Followers', hasLeading: true, hasActions: false),
+      body: ListView.builder(
+        itemCount: followers.length,
+        itemBuilder: (context, i) => UserDoc(
+            uid: followers[i],
+            builder: (follower) {
+              return ListTile(
+                onTap: () => UserService.instance.showPublicProfileScreen(context: context, user: follower),
+                leading: UserAvatar(
+                  user: follower,
+                  size: sizeXl,
+                ),
+                title: Text(follower.name),
+                trailing: const FaIcon(FontAwesomeIcons.chevronRight),
+              );
+            }),
       ),
     );
   }

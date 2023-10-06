@@ -26,8 +26,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-
-    UserService.instance.init(adminUid: myUid ?? '');
+    // UserService.instance.get(myUid!);
+    // UserService.instance.init(adminUid: myUid!);
+    // UserService.instance.init(enableNoOfProfileView: true, adminUid: myUid!);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       FireFlutterService.instance.init(context: router.routerDelegate.navigatorKey.currentContext!);
@@ -49,18 +50,19 @@ class LoginPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AuthChange(
-      builder: (user) => user == null
-          ? const Padding(
-              padding: EdgeInsets.only(
-                left: 24,
-                right: 24,
-              ),
-              child: Center(
-                child: LoginForm(),
-              ),
-            )
-          : const MainPageBody(),
-    ));
+      body: AuthChange(
+        builder: (user) => user == null
+            ? const Padding(
+                padding: EdgeInsets.only(
+                  left: 24,
+                  right: 24,
+                ),
+                child: Center(
+                  child: LoginForm(),
+                ),
+              )
+            : const MainPageBody(),
+      ),
+    );
   }
 }
