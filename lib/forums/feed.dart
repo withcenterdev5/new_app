@@ -16,8 +16,7 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   void initState() {
     super.initState();
-    // can not check if working, install on
-    // physical phone if necessary
+    PostService.instance.enableNotificationOnLike = true;
     PostService.instance.init(
         enableNotificationOnLike: true,
         onLike: (Post post, bool isLiked) async {

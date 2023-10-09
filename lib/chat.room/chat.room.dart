@@ -39,10 +39,7 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      FireFlutterService.instance.init(context: router.routerDelegate.navigatorKey.currentContext!);
-    });
-    // ChatService.instance.customize.showChatRoom = ({, })
+    ChatService.instance.customize.chatRoomAppBarBuilder = ({room, user}) => customAppBar(context, room);
   }
 
   final ChatRoomListViewController controller = ChatRoomListViewController();
@@ -58,13 +55,13 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
         itemBuilder: (context, room) => ChatRoomListTile(
           room: room,
           onTap: () {
-            ChatService.instance.customize.chatRoomAppBarBuilder = ({room, user}) => customAppBar(context, room);
             controller.showChatRoom(context: context, room: room);
           },
         ),
       ),
       floatingActionButton: CustomFloatingButton(
         onPressed: () {
+          // ChatService.instance.
           showGeneralDialog(
             context: context,
             pageBuilder: (context, _, __) => ChatRoomCreateDialog(
@@ -84,43 +81,6 @@ class _CustomChatRoomState extends State<CustomChatRoom> {
         icon: FontAwesomeIcons.plus,
         context: context,
       ),
-    );
-  }
-
-  AppBar customAppBar(BuildContext context, Room? room) {
-    return AppBar(
-      // backgroundColor: Theme.of(context).colorScheme.onBackground,
-      // elevation: 0,
-      forceMaterialTransparency: true,
-      leading: const LeadingButton(),
-      title: room!.isGroupChat
-          ? Text(
-              room.name,
-              style: TextStyle(
-                color: Theme.of(context).shadowColor,
-              ),
-            )
-          : UserDoc(
-              builder: (user) => Text(
-                user.name,
-                style: TextStyle(
-                  color: Theme.of(context).shadowColor,
-                ),
-              ),
-              uid: otherUserUid(room.users),
-              live: false,
-            ),
-      actions: [
-        IconButton(
-          icon: Icon(
-            Icons.settings,
-            color: Theme.of(context).shadowColor,
-          ),
-          onPressed: () async {
-            return ChatService.instance.openChatRoomMenuDialog(context: context, room: room);
-          },
-        ),
-      ],
     );
   }
 }

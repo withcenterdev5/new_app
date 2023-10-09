@@ -1,8 +1,6 @@
 import 'package:fireflutter/fireflutter.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:new_app/home.screen/user.features/viewers.dart';
-import 'package:new_app/page.essentials/app.bar.dart';
 import 'package:new_app/page.essentials/simple.builders.dart';
 import 'package:new_app/home.screen/user.features/followers.dart';
 
@@ -34,16 +32,19 @@ class _UserProfileState extends State<UserProfile> {
             return const CircularProgressIndicator();
           }
           List<String> followers = my.followers.toList();
+          List<String> following = my.followings.toList();
           return Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
                 userInfo(snapshot, context),
-                const SizedBox(height: sizeSm),
-                const Text('Viewers'),
+                const SizedBox(height: sizeLg),
+                Text('Viewers: ${following.length}'),
                 ProfileViewers(size: size),
-                const SizedBox(height: sizeSm),
+                const SizedBox(height: sizeLg),
                 Text('Followers: ${followers.length}'),
+                ProfileFollowers(size: size, followers: followers),
+                const Spacer(),
                 buttonBuilder('Followers', () {
                   UserService.instance.showFollowersScreen(
                     context: context,
@@ -54,8 +55,6 @@ class _UserProfileState extends State<UserProfile> {
                     ),
                   );
                 }),
-                ProfileFollowers(size: size, followers: followers),
-                const Spacer(),
                 buttonBuilder('Show Profile', () {
                   UserService.instance.showPublicProfileScreen(context: context, user: my);
                 }),

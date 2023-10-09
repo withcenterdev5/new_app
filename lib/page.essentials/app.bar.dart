@@ -80,3 +80,54 @@ AppBar appBar(String text, {bool hasLeading = false, bool hasActions = true}) {
     centerTitle: true,
   );
 }
+
+AppBar customAppBar(BuildContext context, Room? room) {
+  return AppBar(
+    forceMaterialTransparency: true,
+    leading: const LeadingButton(),
+    title: room!.isGroupChat
+        ? Text(
+            room.name,
+            style: TextStyle(
+              color: Theme.of(context).shadowColor,
+            ),
+          )
+        : UserDoc(
+            builder: (user) => Text(
+              user.name,
+              style: TextStyle(
+                color: Theme.of(context).shadowColor,
+              ),
+            ),
+            uid: otherUserUid(room.users),
+            live: false,
+          ),
+    actions: [
+      IconButton(
+        icon: Icon(
+          Icons.settings,
+          color: Theme.of(context).shadowColor,
+        ),
+        onPressed: () async {
+          return showDialog(
+            context: context,
+            builder: ((context) {
+              return Theme(
+                data: ThemeData(
+                  appBarTheme: AppBarTheme(
+                      backgroundColor: Theme.of(context).canvasColor,
+                      iconTheme: IconThemeData(
+                        color: Theme.of(context).shadowColor,
+                      ),
+                      elevation: 0),
+                ),
+                child: ChatRoomMenuScreen(room: room),
+              );
+            }),
+          );
+          // return ChatService.instance.openChatRoomMenuDialog(context: context, room: room);
+        },
+      ),
+    ],
+  );
+}
