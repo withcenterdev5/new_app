@@ -1,7 +1,6 @@
 // import 'package:fireflutter/fireflutter.dart';
 import 'package:fireflutter/fireflutter.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:new_app/home.screen/user.profile.dart';
 import 'package:new_app/page.essentials/app.bar.dart';
 import 'package:new_app/page.essentials/bottom.navbar.dart';
@@ -34,7 +33,6 @@ class MainPageBody extends StatefulWidget {
 class _MainPageBodyState extends State<MainPageBody> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // Add menu(s) on top of public screen
     // UserService.instance.customize.publicScreenActions = (context, user) => [
